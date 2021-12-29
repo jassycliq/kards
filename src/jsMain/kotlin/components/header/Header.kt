@@ -9,7 +9,7 @@ import react.dom.aria.ariaLabel
 import react.router.dom.Link
 import styles.Sizes
 
-external interface kardsProps : Props {
+external interface KardsProps : Props {
     var darkMode: Boolean?
     var darkModeClicked: (Boolean?) -> Unit
 }
