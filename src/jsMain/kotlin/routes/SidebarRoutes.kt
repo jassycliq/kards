@@ -1,11 +1,11 @@
 package routes
 
+import components.sidebar.Content
 import react.FC
 import react.Props
 import react.create
 import react.router.Route
 import react.router.Routes
-import sidebar.Content
 
 external interface SidebarRoutesProps : Props {
     var value: Iterable<Content>

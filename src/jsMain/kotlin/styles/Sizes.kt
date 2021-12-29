@@ -1,5 +1,6 @@
 package styles
 
+import csstype.pct
 import csstype.px
 
 object Sizes {
@@ -7,6 +8,6 @@ object Sizes {
         val height = 64.px
     }
     object Sidebar {
-        val width = 256.px
+        val width = 20.pct
     }
 }

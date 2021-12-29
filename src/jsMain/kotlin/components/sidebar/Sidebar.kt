@@ -1,11 +1,14 @@
-package sidebar
+package components.sidebar
 
 import csstype.*
 import kotlinext.js.jso
 import mui.material.*
-import react.*
+import react.FC
+import react.Props
 import react.router.dom.Link
 import react.router.useLocation
+import react.useEffect
+import react.useState
 import styles.Sizes
 
 external interface SidebarProps : Props {
@@ -22,31 +25,27 @@ val sidebar = FC<SidebarProps> { props ->
     }
 
     Drawer {
-        open = true
+        anchor = "left"
         variant = "permanent"
+
+        sx = jso {
+            flexGrow = FlexGrow(1.0)
+            flexShrink = FlexShrink(1.0)
+            height = 100.pct - Sizes.Header.height
+        }
 
         PaperProps = jso {
             sx = jso {
-                width = Sizes.Sidebar.width
                 boxSizing = BoxSizing.borderBox
+                position = Position.sticky
             }
         }
 
-        sx = jso {
-            flexShrink = FlexShrink(0.0)
-            width = Sizes.Sidebar.width
-        }
-        Toolbar {
-
-        }
         List {
-            sx = jso {
-                width = Sizes.Sidebar.width
-            }
-
             props.value.map { content ->
                 ListItemButton {
                     // TODO: Needs an ability to set generic type to `ListItemButton` component [MUI]
+                    @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
                     this as ListItemButtonBaseProps
 
                     selected = activeIndex == content
@@ -57,6 +56,7 @@ val sidebar = FC<SidebarProps> { props ->
                     }
 
                     Link {
+                        +content.name
                         to = content.key
                         style = jso {
                             width = 100.pct
@@ -68,9 +68,9 @@ val sidebar = FC<SidebarProps> { props ->
                             color = Color("inherit")
                             textDecoration = "inherit".asDynamic()
                         }
-                        +content.name
                     }
                 }
+                Divider()
             }
         }
     }

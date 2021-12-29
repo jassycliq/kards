@@ -1,4 +1,4 @@
-package header
+package components.header
 
 import csstype.*
 import kotlinext.js.jso
@@ -15,7 +15,7 @@ external interface kardsProps : Props {
 
 val header = FC<kardsProps> { props ->
     AppBar {
-        position = "fixed"
+        position = "sticky"
 
         sx = jso {
             width = 100.pct
