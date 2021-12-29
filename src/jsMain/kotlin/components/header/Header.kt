@@ -6,6 +6,7 @@ import mui.material.*
 import react.FC
 import react.Props
 import react.dom.aria.ariaLabel
+import react.router.dom.Link
 import styles.Sizes
 
 external interface kardsProps : Props {
@@ -24,11 +25,21 @@ val header = FC<kardsProps> { props ->
         }
 
         Toolbar {
-            Typography {
-                variant = "h4"
+            Link {
                 +"Kards"
+                to =  "/"
 
-                sx = jso { flexGrow = FlexGrow(1.0) }
+                style = jso {
+                    color = Color("inherit")
+                    textDecoration = "inherit".asDynamic()
+                    flexGrow = FlexGrow(1.0)
+                    margin = 0.px
+                    fontFamily = "'Roboto', 'Helvetica', 'Arial', 'sans-serif'".asDynamic()
+                    fontWeight = FontWeight(400)
+                    fontSize = 2.125.rem
+                    lineHeight = "1.235".asDynamic()
+                    letterSpacing = 0.00735.em
+                }
             }
             Box {
                 component = "form".asDynamic()
