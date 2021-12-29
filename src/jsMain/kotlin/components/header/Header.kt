@@ -47,6 +47,7 @@ val header = FC<kardsProps> { props ->
                 FormControl {
                     variant = "filled"
                     size = "small"
+                    sx = jso { minWidth = 256.px }
 
                     InputLabel {
                         htmlFor = "component-filled"
