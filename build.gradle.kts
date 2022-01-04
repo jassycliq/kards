@@ -57,8 +57,13 @@ kotlin {
     }
     js(IR) {
         binaries.executable()
+        useCommonJs()
         browser {
+            webpackTask {
+                output.libraryTarget = "commonjs2"
+            }
             commonWebpackConfig {
+                sourceMaps = true
                 cssSupport.enabled = true
             }
         }
@@ -143,11 +148,10 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJ
     rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().nodeVersion = "16.0.0"
 }
 
-sqldelight {
-    database("database") {
-        packageName = "com.jassycliq.application"
-        sourceFolders = listOf("db")
-        dialect = "sqlite:3.24"
-        verifyMigrations = true
+tasks{
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "com.jassycliq.application.ServerKt"))
+        }
     }
 }
