@@ -1,22 +1,63 @@
-package components.header
+/*
+ * MIT License
+ *
+ * Copyright (c) 2021-2022 Jose Salgado
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
-import csstype.*
+package component.header
+
+import csstype.Color
+import csstype.FlexGrow
+import csstype.FontWeight
+import csstype.ZIndex
+import csstype.em
+import csstype.pct
+import csstype.px
+import csstype.rem
 import kotlinext.js.jso
-import mui.material.*
+import mui.material.AppBar
+import mui.material.AppBarPosition
+import mui.material.Box
+import mui.material.FilledInput
+import mui.material.FormControl
+import mui.material.FormControlVariant
+import mui.material.FormLabelColor
+import mui.material.InputLabel
+import mui.material.Switch
+import mui.material.Toolbar
 import react.FC
 import react.Props
 import react.dom.aria.ariaLabel
 import react.router.dom.Link
-import styles.Sizes
+import style.Sizes
 
 external interface KardsProps : Props {
     var darkMode: Boolean?
     var darkModeClicked: (Boolean?) -> Unit
 }
 
-val header = FC<kardsProps> { props ->
+@Suppress("UnsafeCastFromDynamic")
+val header = FC<KardsProps> { props ->
     AppBar {
-        position = "sticky"
+        position = AppBarPosition.sticky
 
         sx = jso {
             width = 100.pct
@@ -45,13 +86,13 @@ val header = FC<kardsProps> { props ->
                 component = "form".asDynamic()
 
                 FormControl {
-                    variant = "filled"
-                    size = "small"
+                    variant = FormControlVariant.filled
+                    size = "small".asDynamic()
                     sx = jso { minWidth = 256.px }
 
                     InputLabel {
                         htmlFor = "component-filled"
-                        color = "secondary"
+                        color = FormLabelColor.secondary
                         +"Search"
                         style = jso {
                             color = Color("#c4c4c4")

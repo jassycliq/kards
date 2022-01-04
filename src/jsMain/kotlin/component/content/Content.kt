@@ -22,10 +22,32 @@
  * SOFTWARE.
  */
 
-@file:JsModule("@mui/icons-material/Menu")
-@file:JsNonModule
+package component.content
 
-package mui.icons.material
+import component.sidebar.Content
+import csstype.FlexGrow
+import kotlinext.js.jso
+import mui.material.Box
+import react.FC
+import react.Props
+import react.dom.html.ReactHTML
+import route.sidebarRoutes
 
-@JsName("default")
-external val Menu: SvgIconComponent
+external interface ContentProps : Props {
+    var value: Iterable<Content>
+}
+
+val content = FC<ContentProps> { props ->
+    Box {
+        id = "kards-content"
+        component = ReactHTML.main
+
+        sx = jso {
+            flexGrow = FlexGrow(8.0)
+        }
+
+        sidebarRoutes {
+            value = props.value
+        }
+    }
+}

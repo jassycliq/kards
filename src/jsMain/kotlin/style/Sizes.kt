@@ -22,10 +22,16 @@
  * SOFTWARE.
  */
 
-@file:JsModule("@mui/icons-material/Menu")
-@file:JsNonModule
+package style
 
-package mui.icons.material
+import csstype.pct
+import csstype.px
 
-@JsName("default")
-external val Menu: SvgIconComponent
+object Sizes {
+    object Header {
+        val height = 64.px
+    }
+    object Sidebar {
+        val width = 20.pct
+    }
+}

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021-2022 Jose Salgado
+ * Copyright (c) 2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +22,19 @@
  * SOFTWARE.
  */
 
-@file:JsModule("@mui/icons-material/Menu")
-@file:JsNonModule
+package page.empty
 
-package mui.icons.material
+import csstype.pct
+import kotlinext.js.jso
+import mui.material.Box
+import react.FC
+import react.Props
 
-@JsName("default")
-external val Menu: SvgIconComponent
+val empty = FC<Props> {
+    Box {
+        sx = jso {
+            width = 100.pct
+            height = 100.pct
+        }
+    }
+}
