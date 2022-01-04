@@ -22,36 +22,13 @@
  * SOFTWARE.
  */
 
-import di.coroutineModule
-import di.jsClientModule
-import kotlinx.browser.document
+package di
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import mainApp.mainApp
-import org.koin.core.context.startKoin
-import react.create
-import react.dom.render
+import org.koin.dsl.module
 import kotlin.coroutines.CoroutineContext
 
-class Client : CoroutineScope {
-    override val coroutineContext: CoroutineContext = Job()
-
-    fun start() {
-        startKoin {
-            // use Koin logger
-            printLogger()
-            // declare modules
-            modules(listOf(
-                jsClientModule,
-                coroutineModule(coroutineContext),
-            ))
-        }
-
-        val container = document.getElementById("root")!!
-        render(mainApp.create(), container)
-    }
-}
-
-fun main() {
-    Client().start()
+fun coroutineModule(context: CoroutineContext) = module {
+    factory {  CoroutineScope(context + Job()) }
 }

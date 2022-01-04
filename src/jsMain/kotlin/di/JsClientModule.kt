@@ -22,36 +22,21 @@
  * SOFTWARE.
  */
 
-import di.coroutineModule
-import di.jsClientModule
-import kotlinx.browser.document
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import mainApp.mainApp
-import org.koin.core.context.startKoin
-import react.create
-import react.dom.render
-import kotlin.coroutines.CoroutineContext
+package di
 
-class Client : CoroutineScope {
-    override val coroutineContext: CoroutineContext = Job()
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.js.Js
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import org.koin.dsl.module
 
-    fun start() {
-        startKoin {
-            // use Koin logger
-            printLogger()
-            // declare modules
-            modules(listOf(
-                jsClientModule,
-                coroutineModule(coroutineContext),
-            ))
-        }
-
-        val container = document.getElementById("root")!!
-        render(mainApp.create(), container)
+private val client = HttpClient(Js) {
+    install(JsonFeature) {
+        serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
+            prettyPrint = true
+            isLenient = true
+        })
     }
 }
 
-fun main() {
-    Client().start()
-}
+val jsClientModule = module { single { client } }

@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2021-2022 Jose Salgado
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 val koinVersion = "3.1.4"
 val napierVersion = "2.2.0"
 val logbackVersion = "1.3.0-alpha12"
@@ -45,6 +69,9 @@ kotlin {
                 implementation("io.insert-koin:koin-core:$koinVersion")
                 implementation("io.github.aakira:napier:$napierVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("io.ktor:ktor-client-auth:$ktorVersion")
             }
         }
         val commonTest by getting {
@@ -90,8 +117,7 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.7.1-pre.286-kotlin-1.6.10")
                 implementation(npm("@emotion/react", "11.7.1"))
                 implementation(npm("@emotion/styled", "11.6.0"))
-
-                implementation("com.squareup.sqldelight:sqljs-driver:1.5.3")
+                implementation("io.ktor:ktor-client-js:$ktorVersion")
             }
         }
         val jsTest by getting
