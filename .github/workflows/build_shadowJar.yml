@@ -33,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v2.3.1
       with:
         name: Kards Release
-        path: build/libs/*.all.jar
+        path: build/libs/
