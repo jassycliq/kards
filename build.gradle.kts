@@ -3,6 +3,8 @@ val napierVersion = "2.2.0"
 val logbackVersion = "1.3.0-alpha12"
 val serializationVersion = "1.3.2"
 val ktorVersion = "1.6.7"
+val exposedVersion = "0.37.2"
+val flywayVersion = "8.3.0"
 
 plugins {
     kotlin("multiplatform") version "1.6.10"
@@ -64,7 +66,12 @@ kotlin {
                 implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
                 implementation("ch.qos.logback:logback-classic:$logbackVersion")
 
-                implementation("com.squareup.sqldelight:sqlite-driver:1.5.3")
+                implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+                implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+                implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+                implementation("org.flywaydb:flyway-core:$flywayVersion")
+                implementation("com.zaxxer:HikariCP:5.0.0")
+                implementation("com.h2database:h2:2.0.204")
             }
         }
         val jvmTest by getting

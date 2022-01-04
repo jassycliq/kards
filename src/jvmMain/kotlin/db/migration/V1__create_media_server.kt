@@ -22,26 +22,26 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package db.migration
 
-import com.jassycliq.application.di.databaseModule
-import com.jassycliq.application.di.mediaServerModule
-import io.ktor.application.Application
-import io.ktor.application.install
-import org.koin.ktor.ext.Koin
-import org.koin.logger.SLF4JLogger
+import com.jassycliq.application.db.MediaServers
+import org.flywaydb.core.api.migration.BaseJavaMigration
+import org.flywaydb.core.api.migration.Context
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.transactions.transaction
 
-fun Application.installKoin() {
-    val configDir = environment.config.property("ktor.config_dir").getString()
+class V1__create_media_server: BaseJavaMigration() {
+    override fun migrate(context: Context?) {
+        transaction {
+            SchemaUtils.create(MediaServers)
 
-    install(Koin) {
-        SLF4JLogger()
-        properties(mapOf(
-            Pair("config_dir", configDir)
-        ))
-        modules(listOf(
-            databaseModule,
-            mediaServerModule,
-        ))
+            MediaServers.insert {
+                it[name] = "Home Plex"
+                it[software] = "PLEX"
+                it[scheme] = "HTTPS"
+                it[url] = "plex.jassycliq.com"
+            }
+        }
     }
 }

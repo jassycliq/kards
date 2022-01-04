@@ -22,26 +22,42 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package com.jassycliq.application.di
 
-import com.jassycliq.application.di.databaseModule
-import com.jassycliq.application.di.mediaServerModule
-import io.ktor.application.Application
-import io.ktor.application.install
-import org.koin.ktor.ext.Koin
-import org.koin.logger.SLF4JLogger
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
+import org.flywaydb.core.Flyway
+import org.jetbrains.exposed.sql.Database
+import org.koin.dsl.module
+import javax.sql.DataSource
 
-fun Application.installKoin() {
-    val configDir = environment.config.property("ktor.config_dir").getString()
-
-    install(Koin) {
-        SLF4JLogger()
-        properties(mapOf(
-            Pair("config_dir", configDir)
-        ))
-        modules(listOf(
-            databaseModule,
-            mediaServerModule,
-        ))
+private fun runFlyway(datasource: DataSource) {
+    val flyway = Flyway.configure()
+        .dataSource(datasource)
+        .load()
+    try {
+        flyway.info()
+        flyway.migrate()
+    } catch (e: Exception) {
+//        log.error("Exception running flyway migration", e)
+        throw e
     }
+//    log.info("Flyway migration has finished")
 }
+
+private fun config(configDir: String) = HikariConfig().apply {
+    jdbcUrl         = "jdbc:h2:$configDir/db/kardsDb"
+    driverClassName = "org.h2.Driver"
+    username        = "kards"
+    password        = "kards"
+    maximumPoolSize = 10
+}
+
+private fun dataSource(configDir: String) = HikariDataSource(config(configDir))
+
+private fun db(configDir: String) {
+    Database.connect(dataSource(configDir))
+    runFlyway(dataSource(configDir))
+}
+
+val databaseModule = module { single(createdAtStart=true) { db(getProperty("config_dir")) } }

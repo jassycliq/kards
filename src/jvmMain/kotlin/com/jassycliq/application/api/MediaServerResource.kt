@@ -22,26 +22,22 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package com.jassycliq.application.api
 
-import com.jassycliq.application.di.databaseModule
-import com.jassycliq.application.di.mediaServerModule
-import io.ktor.application.Application
-import io.ktor.application.install
-import org.koin.ktor.ext.Koin
-import org.koin.logger.SLF4JLogger
+import com.jassycliq.application.service.MediaServerService
+import io.ktor.application.call
+import io.ktor.response.respond
+import io.ktor.routing.Route
+import io.ktor.routing.get
+import io.ktor.routing.route
+import org.koin.ktor.ext.inject
 
-fun Application.installKoin() {
-    val configDir = environment.config.property("ktor.config_dir").getString()
+fun Route.mediaServerAPI() {
+    val mediaServerService by inject<MediaServerService>()
 
-    install(Koin) {
-        SLF4JLogger()
-        properties(mapOf(
-            Pair("config_dir", configDir)
-        ))
-        modules(listOf(
-            databaseModule,
-            mediaServerModule,
-        ))
+    route("/media-server") {
+        get {
+            call.respond(mediaServerService.getAllMediaServers())
+        }
     }
 }

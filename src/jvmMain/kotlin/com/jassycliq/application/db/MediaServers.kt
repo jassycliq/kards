@@ -22,26 +22,13 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package com.jassycliq.application.db
 
-import com.jassycliq.application.di.databaseModule
-import com.jassycliq.application.di.mediaServerModule
-import io.ktor.application.Application
-import io.ktor.application.install
-import org.koin.ktor.ext.Koin
-import org.koin.logger.SLF4JLogger
+import org.jetbrains.exposed.dao.id.IntIdTable
 
-fun Application.installKoin() {
-    val configDir = environment.config.property("ktor.config_dir").getString()
-
-    install(Koin) {
-        SLF4JLogger()
-        properties(mapOf(
-            Pair("config_dir", configDir)
-        ))
-        modules(listOf(
-            databaseModule,
-            mediaServerModule,
-        ))
-    }
+object MediaServers : IntIdTable() {
+    val name = varchar("name", 255)
+    val software = varchar("software", 32)
+    val scheme = varchar("scheme", 5)
+    val url = varchar("url", 255)
 }

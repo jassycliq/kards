@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c)  Jose Salgado
+ * Copyright (c) 2021-2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,26 +22,36 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package com.jassycliq.application.model
 
-import com.jassycliq.application.di.databaseModule
-import com.jassycliq.application.di.mediaServerModule
-import io.ktor.application.Application
-import io.ktor.application.install
-import org.koin.ktor.ext.Koin
-import org.koin.logger.SLF4JLogger
+import kotlinx.serialization.Serializable
 
-fun Application.installKoin() {
-    val configDir = environment.config.property("ktor.config_dir").getString()
-
-    install(Koin) {
-        SLF4JLogger()
-        properties(mapOf(
-            Pair("config_dir", configDir)
-        ))
-        modules(listOf(
-            databaseModule,
-            mediaServerModule,
-        ))
-    }
+enum class MediaServerSoftware {
+    PLEX,
+    JELLYFIN,
+    OLARIS,
+    OTHER,
 }
+
+enum class MediaServerScheme {
+    HTTP,
+    HTTPS,
+}
+
+@Serializable
+data class MediaServer(
+    var id: Int,
+    var name: String,
+    var software: MediaServerSoftware,
+    var scheme: MediaServerScheme,
+    var url: String,
+)
+
+@Serializable
+data class NewMediaServer(
+    var name: String,
+    var software: MediaServerSoftware,
+    var scheme: MediaServerScheme,
+    var url: String,
+)
+

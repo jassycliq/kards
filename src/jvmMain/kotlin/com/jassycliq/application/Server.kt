@@ -5,6 +5,7 @@ import com.jassycliq.application.plugins.installKoin
 import com.jassycliq.application.plugins.installLocations
 import com.jassycliq.application.plugins.installOAuth
 import com.jassycliq.application.plugins.installSerialization
+import com.jassycliq.application.routes.apiRoute
 import com.jassycliq.application.routes.indexRoute
 import com.jassycliq.application.routes.preferencesRoute
 import com.jassycliq.application.routes.staticRoute
@@ -29,6 +30,7 @@ fun Application.module(testing: Boolean = false) {
         stylesRoute()
         indexRoute()
         preferencesRoute()
+        apiRoute()
 
         get("/something-cool") {
             call.respondHtml(HttpStatusCode.OK, HTML::index)
