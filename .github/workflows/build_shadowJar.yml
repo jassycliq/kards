@@ -40,9 +40,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: ncipollo/release-action@v1
       with:
-        fail_on_unmatched_files: true
+        artifacts: "/home/runner/work/kards/kards/build/libs/kards.jar"
+        bodyFile: ${{steps.build_changelog.outputs.changelog}}
         prerelease: true
-        body_path: ${{steps.build_changelog.outputs.changelog}}
-        files: /home/runner/work/kards/kards/build/libs/kards.jar
+        token: ${{ secrets.GITHUB_TOKEN }}
