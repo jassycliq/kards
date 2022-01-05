@@ -39,13 +39,9 @@ jobs:
       uses: mikepenz/release-changelog-builder-action@v2.7.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - uses: actions/download-artifact@v2
-      id: download
-      with:
-        name: Kards Release
     - name: Release
       uses: softprops/action-gh-release@v0.1.14
       with:
-        files: ${{steps.download.outputs.download-path}}
+        files: build/libs/kards.jar
         body: ${{steps.build_changelog.outputs.changelog}}
         prerelease: true
