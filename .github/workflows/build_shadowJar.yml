@@ -43,4 +43,4 @@ jobs:
         fail_on_unmatched_files: true
         prerelease: true
         body_path: ${{steps.build_changelog.outputs.changelog}}
-        files: build/libs/kards.jar
+        files: /home/runner/work/kards/kards/build/libs/kards.jar
