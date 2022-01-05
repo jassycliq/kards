@@ -150,6 +150,9 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJ
 
 tasks{
     shadowJar {
+        archiveClassifier.set("")
+        archiveVersion.set("")
+        archiveAppendix.set("")
         manifest {
             attributes(Pair("Main-Class", "com.jassycliq.application.ServerKt"))
         }
