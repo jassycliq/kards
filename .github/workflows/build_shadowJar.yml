@@ -44,9 +44,8 @@ jobs:
       with:
         name: Kards Release
     - name: Release
-      uses: ncipollo/release-action@v1
+      uses: softprops/action-gh-release@v0.1.14
       with:
-        artifacts: ${{steps.download.outputs.download-path}}/kards.jar
-        bodyFile: ${{steps.build_changelog.outputs.changelog}}
+        files: ${{steps.download.outputs.download-path}}
+        body: ${{steps.build_changelog.outputs.changelog}}
         prerelease: true
-        token: ${{ secrets.GITHUB_TOKEN }}
