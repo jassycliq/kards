@@ -46,7 +46,7 @@ jobs:
     - name: Release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: ${{steps.download.outputs.download-path}}
+        artifacts: ${{steps.download.outputs.download-path}}/kards.jar
         bodyFile: ${{steps.build_changelog.outputs.changelog}}
         prerelease: true
         token: ${{ secrets.GITHUB_TOKEN }}
