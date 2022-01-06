@@ -22,14 +22,18 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.routes
+package com.jassycliq.application.route
 
-import io.ktor.http.content.resources
-import io.ktor.http.content.static
+import com.jassycliq.application.html.index
+import io.ktor.application.call
+import io.ktor.html.respondHtml
+import io.ktor.http.HttpStatusCode
 import io.ktor.routing.Route
+import io.ktor.routing.get
+import kotlinx.html.HTML
 
-fun Route.staticRoute() {
-    static("/static") {
-        resources()
+fun Route.indexRoute() {
+    get("/") {
+        call.respondHtml(HttpStatusCode.OK, HTML::index)
     }
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c)  Jose Salgado
+ * Copyright (c) 2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.routes
+package com.jassycliq.application.route
 
-import com.jassycliq.application.api.mediaServerAPI
+import io.ktor.http.content.resources
+import io.ktor.http.content.static
 import io.ktor.routing.Route
-import io.ktor.routing.route
 
-fun Route.apiRoute() {
-    route("/api") {
-        mediaServerAPI()
+fun Route.staticRoute() {
+    static("/static") {
+        resources()
     }
 }

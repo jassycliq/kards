@@ -22,18 +22,14 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.routes
+package com.jassycliq.application.route
 
-import com.jassycliq.application.html.index
-import io.ktor.application.call
-import io.ktor.html.respondHtml
-import io.ktor.http.HttpStatusCode
+import com.jassycliq.application.api.mediaServerAPI
 import io.ktor.routing.Route
-import io.ktor.routing.get
-import kotlinx.html.HTML
+import io.ktor.routing.route
 
-fun Route.indexRoute() {
-    get("/") {
-        call.respondHtml(HttpStatusCode.OK, HTML::index)
+fun Route.apiRoute() {
+    route("/api") {
+        mediaServerAPI()
     }
 }

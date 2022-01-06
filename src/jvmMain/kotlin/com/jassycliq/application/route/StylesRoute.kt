@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.routes
+package com.jassycliq.application.route
 
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
