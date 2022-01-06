@@ -29,6 +29,7 @@ val serializationVersion = "1.3.2"
 val ktorVersion = "1.6.7"
 val exposedVersion = "0.37.2"
 val flywayVersion = "8.3.0"
+val jellyfinSDKVersion = "1.1.2"
 
 plugins {
     kotlin("multiplatform") version "1.6.10"
@@ -104,6 +105,8 @@ kotlin {
                 implementation("org.flywaydb:flyway-core:$flywayVersion")
                 implementation("com.zaxxer:HikariCP:5.0.0")
                 implementation("com.h2database:h2:2.0.204")
+
+                implementation("org.jellyfin.sdk:jellyfin-core:$jellyfinSDKVersion")
             }
         }
         val jvmTest by getting
