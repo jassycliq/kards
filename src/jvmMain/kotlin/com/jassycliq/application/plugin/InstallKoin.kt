@@ -22,12 +22,26 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package com.jassycliq.application.plugin
 
+import com.jassycliq.application.di.databaseModule
+import com.jassycliq.application.di.mediaServerModule
 import io.ktor.application.Application
 import io.ktor.application.install
-import io.ktor.locations.Locations
+import org.koin.ktor.ext.Koin
+import org.koin.logger.SLF4JLogger
 
-fun Application.installLocations() {
-    install(Locations)
+fun Application.installKoin() {
+    val configDir = environment.config.property("ktor.config_dir").getString()
+
+    install(Koin) {
+        SLF4JLogger()
+        properties(mapOf(
+            Pair("config_dir", configDir)
+        ))
+        modules(listOf(
+            databaseModule,
+            mediaServerModule,
+        ))
+    }
 }

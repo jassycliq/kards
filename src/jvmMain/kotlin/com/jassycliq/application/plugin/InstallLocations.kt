@@ -22,17 +22,12 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package com.jassycliq.application.plugin
 
 import io.ktor.application.Application
 import io.ktor.application.install
-import io.ktor.features.Compression
-import io.ktor.features.deflate
-import io.ktor.features.gzip
+import io.ktor.locations.Locations
 
-fun Application.installCompression() {
-    install(Compression) {
-        gzip()
-        deflate()
-    }
+fun Application.installLocations() {
+    install(Locations)
 }

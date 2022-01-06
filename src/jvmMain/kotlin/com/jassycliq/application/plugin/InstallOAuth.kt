@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c)  Jose Salgado
+ * Copyright (c) 2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,26 +22,14 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.plugins
+package com.jassycliq.application.plugin
 
-import com.jassycliq.application.di.databaseModule
-import com.jassycliq.application.di.mediaServerModule
 import io.ktor.application.Application
-import io.ktor.application.install
-import org.koin.ktor.ext.Koin
-import org.koin.logger.SLF4JLogger
 
-fun Application.installKoin() {
-    val configDir = environment.config.property("ktor.config_dir").getString()
-
-    install(Koin) {
-        SLF4JLogger()
-        properties(mapOf(
-            Pair("config_dir", configDir)
-        ))
-        modules(listOf(
-            databaseModule,
-            mediaServerModule,
-        ))
-    }
+fun Application.installOAuth() {
+//    install(Authentication) {
+//        oauth {
+//            // TODO: Configure oauth authentication
+//        }
+//    }
 }
