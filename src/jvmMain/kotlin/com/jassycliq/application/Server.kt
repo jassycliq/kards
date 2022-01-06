@@ -25,15 +25,15 @@
 package com.jassycliq.application
 
 import com.jassycliq.application.html.index
-import com.jassycliq.application.plugins.installKoin
-import com.jassycliq.application.plugins.installLocations
-import com.jassycliq.application.plugins.installOAuth
-import com.jassycliq.application.plugins.installSerialization
-import com.jassycliq.application.routes.apiRoute
-import com.jassycliq.application.routes.indexRoute
-import com.jassycliq.application.routes.preferencesRoute
-import com.jassycliq.application.routes.staticRoute
-import com.jassycliq.application.routes.stylesRoute
+import com.jassycliq.application.plugin.installKoin
+import com.jassycliq.application.plugin.installLocations
+import com.jassycliq.application.plugin.installOAuth
+import com.jassycliq.application.plugin.installSerialization
+import com.jassycliq.application.route.apiRoute
+import com.jassycliq.application.route.indexRoute
+import com.jassycliq.application.route.preferencesRoute
+import com.jassycliq.application.route.staticRoute
+import com.jassycliq.application.route.stylesRoute
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.html.respondHtml
