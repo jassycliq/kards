@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c)  Jose Salgado
+ * Copyright (c) 2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,11 +24,11 @@
 
 package com.jassycliq.application.db
 
-import org.jetbrains.exposed.dao.id.IntIdTable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.jetbrains.exposed.sql.transactions.transaction
 
-object MediaServers : IntIdTable() {
-    val name = varchar("name", 255)
-    val software = varchar("software", 32)
-    val scheme = varchar("scheme", 5)
-    val url = varchar("url", 255)
-}
+suspend fun <T> dbQuery(block: () -> T): T =
+    withContext(Dispatchers.IO) {
+        transaction { block() }
+    }

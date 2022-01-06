@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c)  Jose Salgado
+ * Copyright (c) 2021-2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,17 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.service
+package com.jassycliq.application.data.mediaserver
 
-import com.jassycliq.application.db.MediaServers
 import com.jassycliq.application.db.dbQuery
 import com.jassycliq.application.model.MediaServer
-import com.jassycliq.application.model.MediaServerScheme
-import com.jassycliq.application.model.MediaServerSoftware
 import com.jassycliq.application.model.NewMediaServer
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 
-class MediaServerService {
+class MediaServersDAO {
 
     suspend fun addMediaServer(newMediaServer: NewMediaServer): MediaServer {
         var key: EntityID<Int>? = null
@@ -61,13 +57,4 @@ class MediaServerService {
     suspend fun getAllMediaServers(): List<MediaServer> = dbQuery {
         MediaServers.selectAll().map { toMediaServer(it) }
     }
-
-    private fun toMediaServer(row: ResultRow): MediaServer =
-        MediaServer(
-            id = row[MediaServers.id].value,
-            name = row[MediaServers.name],
-            software = MediaServerSoftware.valueOf(row[MediaServers.software]),
-            scheme = MediaServerScheme.valueOf(row[MediaServers.scheme]),
-            url = row[MediaServers.url],
-        )
 }

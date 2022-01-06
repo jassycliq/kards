@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021-2022 Jose Salgado
+ * Copyright (c) 2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,13 +22,26 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.di
+package com.jassycliq.application.data.mediaserver
 
-import com.jassycliq.application.data.mediaserver.MediaServersDAO
-import com.jassycliq.application.data.mediaserver.MediaServersRepository
-import org.koin.dsl.module
+import com.jassycliq.application.model.MediaServer
+import com.jassycliq.application.model.MediaServerScheme
+import com.jassycliq.application.model.MediaServerSoftware
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.ResultRow
 
-val mediaServerModule = module {
-    single { MediaServersDAO() }
-    single { MediaServersRepository() }
+object MediaServers : IntIdTable() {
+    val name = varchar("name", 255)
+    val software = varchar("software", 32)
+    val scheme = varchar("scheme", 5)
+    val url = varchar("url", 255)
 }
+
+fun toMediaServer(row: ResultRow): MediaServer =
+    MediaServer(
+        id = row[MediaServers.id].value,
+        name = row[MediaServers.name],
+        software = MediaServerSoftware.valueOf(row[MediaServers.software]),
+        scheme = MediaServerScheme.valueOf(row[MediaServers.scheme]),
+        url = row[MediaServers.url],
+    )

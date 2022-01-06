@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c)  Jose Salgado
+ * Copyright (c) 2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,13 +22,24 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.db
+package com.jassycliq.application.api
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.jetbrains.exposed.sql.transactions.transaction
+import com.jassycliq.application.data.mediaserver.MediaServersRepository
+import io.ktor.application.call
+import io.ktor.response.respond
+import io.ktor.routing.Route
+import io.ktor.routing.get
+import io.ktor.routing.route
+import org.koin.ktor.ext.inject
 
-suspend fun <T> dbQuery(block: () -> T): T =
-    withContext(Dispatchers.IO) {
-        transaction { block() }
+fun Route.mediaServerAPI() {
+    val mediaServersRepo by inject<MediaServersRepository>()
+
+    route("/media-server/servers") {
+        get {
+            call.respond(mediaServersRepo.getAllMediaServers())
+        }
     }
+
+
+}

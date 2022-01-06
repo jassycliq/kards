@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c)  Jose Salgado
+ * Copyright (c) 2022 Jose Salgado
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,22 @@
  * SOFTWARE.
  */
 
-package com.jassycliq.application.api
+package com.jassycliq.application.data.mediaserver
 
-import com.jassycliq.application.service.MediaServerService
-import io.ktor.application.call
-import io.ktor.response.respond
-import io.ktor.routing.Route
-import io.ktor.routing.get
-import io.ktor.routing.route
-import org.koin.ktor.ext.inject
+import com.jassycliq.application.model.MediaServer
+import com.jassycliq.application.model.NewMediaServer
+import org.jetbrains.exposed.dao.id.EntityID
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-fun Route.mediaServerAPI() {
-    val mediaServerService by inject<MediaServerService>()
+class MediaServersRepository : KoinComponent {
+    private val mediaServersDAO: MediaServersDAO by inject()
 
-    route("/media-server") {
-        get {
-            call.respond(mediaServerService.getAllMediaServers())
-        }
-    }
+    suspend fun addMediaServer(newMediaServer: NewMediaServer): MediaServer = mediaServersDAO.addMediaServer(newMediaServer)
+
+    suspend fun getMediaServer(id: EntityID<Int>): MediaServer? = mediaServersDAO.getMediaServer(id)
+
+    suspend fun getAllMediaServers(): List<MediaServer> = mediaServersDAO.getAllMediaServers()
+
+
 }
